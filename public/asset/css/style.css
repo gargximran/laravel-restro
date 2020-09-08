@@ -1,0 +1,366 @@
+/* global css start*/
+@font-face {
+    font-family: Now;
+    src: url('../fonts/Now-Medium.woff');
+}
+h1, h2, h3{
+    font-family: 'Ubuntu', sans-serif; 
+    margin: 0;
+    color: #4c4a4a;
+}
+h1{
+    font-size: 32px;
+}
+h2{
+    font-size: 24px;
+}
+h3{
+    font-size: 15px;
+}
+p{
+    font-family: Now;
+    margin: 0;
+    color: #4c4a4a;
+    font-size: 14px;
+}
+td{
+    font-family: Now;
+    margin: 0;
+    color: #4c4a4a;
+    font-size: 14px;
+}
+a{
+    font-family: Now;
+    margin: 0;
+    color: #4c4a4a;
+    font-size: 14px;
+}
+li{
+    font-family: Now;
+    list-style: none;;
+}
+
+button{
+    font-family: Now;
+}
+label{
+    font-family: Now;
+    font-weight: 700;
+}
+button:focus{
+    box-shadow: none!important;
+    outline: none!important
+}
+a:hover{
+    text-decoration: none;
+}
+ul{
+    padding: 0;
+    margin: 0;
+}
+.body-content{
+    width: 100%;
+    display: flex;
+}
+.left-sidebar{
+    background: white;
+    height: 100vh;
+    width: 15%;
+}
+.main-content{
+    width: 85%;
+    background: #fcfcfc;
+}
+.form-control:focus{
+    box-shadow: none!important;
+}
+.for-mob{
+    display: none;
+}
+.hide-nav{
+    display: none;
+}
+/* global css end*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* topbar pc start */
+.topbar-pc{
+    padding: 15px;
+}
+.my-profile ul{
+    text-align: right;
+}
+.my-profile ul li{
+    display: inline;
+    margin: 0 10px;
+}
+.my-profile ul li a{
+    color: #b0b2b8;
+}
+/* topbar pc end */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* left sidebar pc start */
+.nav-item ul li a{
+    width: 100%;
+    display: flex;
+    font-weight: 700;
+}
+.nav-item ul li a .left{
+    width: 80%;
+}
+.nav-item ul li a .right{
+    width: 20%;
+    text-align: right;
+}
+.nav-item{
+    padding: 15px 0;
+}
+.nav-item ul li{
+    margin: 15px 0;
+}
+.nav-item ul li a:hover{
+    color: #b7ea84;
+}
+/* left sidebar pc end */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* dashboard css start */
+.page-indicator{
+    padding: 15px;
+}
+.page-indicator ul li{
+    display: inline;
+    margin: 0 10px;
+    font-weight: 700;
+}
+.page-indicator ul li .fas{
+    background: #b7ea84;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+}
+section{
+    width: 100%;
+}
+.add-row{
+    padding: 15px;
+}
+.add-table{
+    background: #ee3466;
+    color: white;
+}
+.modal-content{
+    border-radius: unset;
+}
+.add-table-form .form-control{
+    border: 1px solid #ee3466;
+}
+.add-table-form .form-control:focus{
+    border: 1px solid #000000;
+}
+.table-item{
+    background-image: url(images/table-blue.png);
+    background-repeat: no-repeat;
+    background-position: left;
+    background-size: 50%;
+    height: 20vh;
+    position: relative;
+    margin: 15px 0;
+}
+
+.table-content{
+    position: absolute;
+    top: 50%;
+    left: 30px;
+    transform: translateY(-50%);
+    width: max-content;
+}
+.text-available{
+    color: #46b04b;
+}
+.text-occupied{
+    color: #488fe0;
+}
+table{
+    box-shadow: #dad9d9 0px 7px 16px -3px;
+}
+table thead tr{
+    background: #46b04b;
+    color: white;
+}
+
+/* dashboard css end */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* food item start */
+.title-row{
+    padding-left: 15px;
+    margin-top: 15px ;
+    margin-bottom: 15px ;
+}
+.filter-item-row ul{
+    border-bottom: 2px solid #d8d4d4;
+}
+.filter-item-row ul li{
+    display: inline-block;
+    margin: -2px 15px;
+    cursor: pointer;
+}
+.active-item{
+    border-bottom: 2px solid #46b04b;
+}
+.filter-row{
+    margin: 15px 0;
+    display: none;
+}
+.active-row{
+    display: block;
+}
+.filter-box{
+    background: white;
+    padding: 15px;
+    border-radius: 5px;
+}
+.filter-box img{
+    width: 100%;
+}
+.filter-box {
+    margin: 15px 0;
+}
+.filter-box .right{
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+}
+.filter-box .right ul{
+    margin: 15px 0;
+}
+.filter-box .right ul li{
+    display: inline;
+    margin-right: 10px;
+}
+.filter-box .right .quantity{
+    width: 50px;
+    border: 1px solid #46b04b;
+}
+.filter-box .right .quantity:focus{
+    box-shadow: none!important;
+    border: 1px solid #46b04b!important;
+    outline: none
+}
+.filter-box .right .fa-plus{
+    background: #46b04b;
+    color: white;
+    padding: 8px;
+    cursor: pointer;
+}
+.filter-row .col-md-5{
+    display: inline-block;
+}
+.order-summary{
+    padding: 15px;
+    background: white;
+    box-shadow: #dad9d9 0px 7px 16px -3px;
+}
+.order-summary h1{
+    color: #46b04b;
+}
+.filter-box .price{
+    color: #46b04b;
+    font-weight: 700;
+}
+.order-summary-price .col-md-12{
+    margin: 5px 0
+}
+.print-button button{
+    background: #46b04b;
+    color: white;
+    border: white;
+    padding: 15px 25px;
+    border-radius: 5px;;
+}
+.print-button .invoice{
+    background: #d1bd0c;
+}
+.action ul li{
+    display: inline;
+    margin: 0 5px;
+}
+.action ul li .fa-edit{
+    color: #46b04b;
+}
+.action ul li .fa-trash{
+    color: #fd4e4e;
+}
+/* food item end */
