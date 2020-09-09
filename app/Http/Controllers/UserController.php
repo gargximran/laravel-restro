@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -45,6 +46,7 @@ class UserController extends Controller
 
         $user = new User();
         $user->name = $request->name;
+        $user->user_id = uniqid().$request->user()->user_id.Str::random(12);
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->isAdmin = 0;

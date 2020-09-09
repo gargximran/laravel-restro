@@ -35,19 +35,30 @@
                            </div>
                         </a>
                     </li>
-                    <li >
-                        <a href="food-items.php">
-                           <div class="left">
-                                food item
-                           </div>
-                           <div class="right">
-                                <i class="fas fa-crosshairs"></i>
-                           </div>
-                        </a>
-                    </li>
+                    
                     
                     @if(Auth::user()->isAdmin == 1)
-                        
+                        <li >
+                            <a href="{{ route('foodShow') }}">
+                            <div class="left">
+                                    food item
+                            </div>
+                            <div class="right">
+                                    <i class="fas fa-crosshairs"></i>
+                            </div>
+                            </a>
+                        </li>
+
+                        <li >
+                            <a href="{{ route('tableShow') }}">
+                            <div class="left">
+                                    Table
+                            </div>
+                            <div class="right">
+                                    <i class="fas fa-crosshairs"></i>
+                            </div>
+                            </a>
+                        </li>
                         <li >
                             <a href="">
                             <div class="left">

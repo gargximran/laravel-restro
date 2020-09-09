@@ -15,8 +15,9 @@ class CreateTablesTable extends Migration
     {
         Schema::create('tables', function (Blueprint $table) {
             $table->id();
+            $table->string('table_id');
             $table->string('name');
-            $table->foreignId('user_id');
+            $table->string('user_id');
             $table->boolean('status')->default(0);
             $table->timestamps();
         });

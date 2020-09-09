@@ -38,15 +38,31 @@ class User extends Authenticatable
     ];
 
     public function user(){
-        return $this->hasMany(User::class, 'admin_id', 'id');
+        return $this->hasMany(User::class, 'admin_id', 'user_id');
     }
 
 
     public function admin(){
-        return $this->belongsTo(User::class, "admin_id", 'id');
+        return $this->belongsTo(User::class, "admin_id", 'user_id');
     }
 
     public function table(){
-        return $this->hasMany(table::class);
+        return $this->hasMany(table::class, 'user_id', "user_id");
+    }
+
+
+    public function tables(){
+        return $this->hasMany(table::class, 'user_id', "user_id");
+    }
+
+
+
+    public function categories(){
+        return $this->hasMany(Category::class, "user_id", "user_id");
+    }
+
+
+    public function food(){
+        return $this->hasMany(Food::class, 'user_id', 'user_id');
     }
 }
