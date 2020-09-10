@@ -6,8 +6,11 @@
 <!-- body content start -->
 <div class="body-content">
 
+@if (Auth::user()->isAdmin)
+	@include('include.leftsidebar')
+@endif
 
-@include('include.leftsidebar')
+
 
 @yield('body-content')
 

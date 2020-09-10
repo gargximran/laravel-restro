@@ -1,3 +1,5 @@
+
+
 //navbar mob
 $(document).ready(function(){
 	$(".show-nav").click(function(){
@@ -43,3 +45,23 @@ $(document).ready(function(){
 		}
 	})
 })
+
+
+// Script for dashboard
+
+const add = document.getElementsByClassName('add-qt');
+const quantity = document.getElementsByClassName('quantity-taker')
+
+for(let index in add){
+	add[index].onclick = e => {
+		item = e.target.dataset.food
+		qty = quantity[index].value
+		axios.post('/api/order', {
+			item,
+			qty : table
+		})
+			.then(res => {
+				console.log(res)
+			})
+	}
+}

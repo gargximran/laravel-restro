@@ -53,9 +53,8 @@ class UserController extends Controller
         $user->admin()->associate($request->user());
         $user->save();
 
-        $users = $request->user()->user;
 
-        return view('pages.user', compact('users'));
+        return redirect()->route('user');
     }
 
     /**
@@ -87,9 +86,21 @@ class UserController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, User $user, User $us)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required'
+        ]);
+        
+        $us->name = $request->name;
+        $us->email = $request->email;
+        $request->password ? $us->password = Hash::make($request->password) : '';
+        if($us->save()){
+            return redirect()->route('user');
+        }
+
+        return redirect()->route('user');
     }
 
     /**
@@ -98,8 +109,12 @@ class UserController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(User $user, User $us)
     {
-        //
+        if($us->delete()){
+            return redirect()->route('user');
+        }
+
+        return redirect()->route('user');
     }
 }

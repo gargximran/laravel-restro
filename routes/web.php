@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Auth::routes();
+Auth::routes(['register' => false, 'verify' => false]);
 
 Route::middleware('auth')->group(function(){
     Route::get('/', 'TableController@index')->name('home');
@@ -29,6 +29,9 @@ Route::middleware('auth')->group(function(){
         // User management routes
         Route::get('/user', 'UserController@index')->name("user");
         Route::post('/user', 'UserController@store')->name("user_post");
+        Route::put('/user/{user:user_id}/user/{us:user_id}', 'UserController@update')->name('update_user');
+        Route::delete('/user/{user:user_id}/delete/{us:user_id}', 'UserController@destroy')->name('delete_user');
+
 
         // table management routes
         Route::post('/table/{user:user_id}/edit/{table:id}', 'TableController@update')->name('update_table');
@@ -45,6 +48,7 @@ Route::middleware('auth')->group(function(){
         // food management routes
         Route::post('/food/add', 'FoodController@store')->name('AddFood');
         Route::post('/food/{user:user_id}/edit/{food:id}', 'FoodController@update')->name('editFood');
+        Route::delete('/food/{user:user_id}/delete/{food:id}', 'FoodController@delete')->name('deleteFood');
         Route::get('/food', 'AdminController@foodShow')->name('foodShow');
     });
     

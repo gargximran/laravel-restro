@@ -76,7 +76,7 @@ class TableController extends Controller
             $categories = request()->user()->admin->categories()->orderBy('name', 'asc')->get();
         }
         
-        return view('pages.inTable', compact('categories'));
+        return view('pages.inTable', compact('categories','table'));
     }
 
     /**

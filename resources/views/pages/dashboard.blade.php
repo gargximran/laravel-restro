@@ -1,8 +1,12 @@
 @extends('layout.app')
 
 @section('body-content')
-	<!-- main content start -->
-<div class="main-content">
+    <!-- main content start -->
+    @if (Auth::user()->isAdmin)
+        <div class="main-content">
+    @else
+        <div style="width:100%; display:block;">
+    @endif
     <div class="container-fluid">
         
         <!-- page indicator start -->

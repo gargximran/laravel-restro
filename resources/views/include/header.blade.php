@@ -31,5 +31,9 @@
 
 	<!-- responsive css file -->
 	<link rel="stylesheet" type="text/css" href="{{ asset('asset/css/responsive.css') }}"> 
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	<script>
+		const data = new Date().toDateString();
+	</script>
 
 </head>

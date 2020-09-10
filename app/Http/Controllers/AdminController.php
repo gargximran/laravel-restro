@@ -16,10 +16,16 @@ class AdminController extends Controller
 
     public function index()
     {
-    
-       
+          
         $tables = request()->user()->table()->orderBy('name', 'asc')->get();
         
         return view('pages.table', compact('tables'));
     }
+
+    public function order(Request $request){
+        return $request->qty;
+    }
+
+
+
 }

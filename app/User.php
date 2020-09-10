@@ -42,6 +42,10 @@ class User extends Authenticatable
     }
 
 
+    public function us(){
+        return $this->hasMany(User::class, 'admin_id', 'user_id');
+    }
+
     public function admin(){
         return $this->belongsTo(User::class, "admin_id", 'user_id');
     }
@@ -64,5 +68,9 @@ class User extends Authenticatable
 
     public function food(){
         return $this->hasMany(Food::class, 'user_id', 'user_id');
+    }
+
+    public function bill(){
+        return $this->hasMany(Bill::class, 'user_id', 'user_id');
     }
 }

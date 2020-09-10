@@ -135,4 +135,13 @@ class FoodController extends Controller
         }
         return redirect()->route('foodShow');
     }
+
+
+    public function delete(User $user, Food $food){
+        if($food->delete()){
+            return redirect()->route('foodShow');
+        }else{
+            return redirect()->route('foodShow');
+        }
+    }
 }
