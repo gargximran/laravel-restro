@@ -13,15 +13,185 @@
                 <div class="col-md-8">
                    
                 </div>
+                
                 <div class="col-md-4 print-button">
                     <div class="text-center ">
-                        <button class="bg-info"> guest bill</button>
+                        @if(!$table->status)
+                        <div  class="start-table">
+                            <a class="btn bg-info show-table"> Start Table</a>
+                            <div class="hotel-boy">
+                                @foreach ($users as $user)
+                                    <a href="{{route('startTable', [$table->table_id, $user->id])}}">{{$user->name}}</a>
+                                @endforeach
+                                
+                             
+                            </div>
+                        </div>
+                        @else
+                        <p>by : {{$table->bill()->where('status', 1)->first()->by}}</p>
+                        <button class="bg-info" data-toggle="modal" data-target="#guestBill"> guest bill</button>
                         <button class="invoice"> invoice</button>
+                        @endif
+                        
                     </div>
                 </div>
+                
             </div>
         </section>
         <!-- page indicator end -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="guestBill" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Create Bill</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <p>
+                <input style="width:30%;margin:5px 0;" placeholder="Vat %" type="number">
+                <input style="width:60%; margin:5px 0;" placeholder="Vat tk" type="number">
+            </p>
+            <p>
+                <input style="width:30%; margin:5px 0;" placeholder="Discount %" type="number">
+                <input style="width:60%; margin:5px 0;" placeholder="Discount tk" type="number">
+            </p>
+            <p>
+                <input style="width:100%; margin:5px 0;" placeholder="Service Charge" type="number">
+                
+            </p>
+            <p>
+                <button>Submit</button>
+                <button>Print</button>
+            </p>
+            <div class="col-md-4" id="guestBill">
+                <div class="order-summary" style="width:340px;">
+                    <h1 class="text-center text-dark" style="text-align: center;">
+                        <img src="{{asset('asset/images/logo.png')}}">
+                    </h1>
+                    <p style="text-align: center; font-size:12px;">
+                        Shop No-802, Grand Zam Zam Tower, (7th Floor Food Court), Uttara, Dhaka
+                    </p>
+                    <p style="text-align: center;font-size:12px;">
+                        Cell: 01316-986471
+                    </p>
+
+                    <p style="text-align: center;font-size:12px;">
+                        Guest Bill
+                    </p>
+                    
+                    <hr>
+                    @php
+                        if($table->bill()->where('status', 1)->first()){
+                            $orderId = $table->bill()->where('status', 1)->first()->bill_id;
+                        }else{
+                            $orderId = '';
+                        }
+
+
+
+                    @endphp
+                    <h4>{{$table->name}}</h4>
+                    <p  style="font-size: 11px;">Order Id : <span>{{$orderId}}</span></p>
+                    <p  style="font-size: 11px;">Order Date : <span id="date1"></span></p>
+                    <script> 
+                        document.getElementById('date1').innerHTML = data
+                    </script>
+                    <hr>
+                    <div>
+                        <!-- item start -->
+                        <div>
+                            <h2  style="text-align: center; font-size:16px;" >Order Info</h2>
+                            <div style="display: flex; flex-wrap: wrap;  border-bottom: 1px solid black; margin-bottom:12px;">
+                                <div style="flex: 0 0 50%;max-width: 50%;">
+                                    <p style="font-size: 12px;">
+                                        Item (rate * quantity)
+                                    </p>
+                                </div>
+                                <div style="flex: 0 0 50%;max-width: 50%;">
+                                    <p  style="font-size: 12px; text-align:right;">
+                                       price
+                                    </p>
+                                </div>
+                            </div>
+                            <div style="display: flex;flex-wrap: wrap;">
+                                @if($table->bill()->where('status', 1)->first())
+                                    @foreach ($table->bill()->where('status', 1)->first()->order as $key => $order)
+                                        
+                                        <div style="flex: 0 0 50%;max-width: 50%;">
+                                            <p style="font-size: 12px;">
+                                               {{ $order->food_name}} ({{$order->price}} tk * {{$order->quantity}})
+                                            </p>
+                                        </div>
+                                        <div style="flex: 0 0 50%;max-width: 50%;">
+                                            <p style="font-size: 12px; text-align:right;">
+                                            {{$order->total}} tk
+                                            </p>
+                                        </div>                                     
+                                    @endforeach
+                                @endif
+                            </div>
+                        </div>
+                        <!-- item end -->
+                    </div>
+                    <div>
+                        <hr>
+                        <div style="display: flex; flex-wrap: wrap;">
+                            <div style="flex: 0 0 50%;max-width: 50%;">
+                                <p style="font-size: 12px;text-align:right;">
+                                    Order Total :
+                                </p>
+                                <p style="font-size: 12px;text-align:right;">
+                                    Vat :
+                                </p>
+                                <p style="font-size: 12px;text-align:right;">
+                                    S. Charge :
+                                </p>
+                                <p style="font-size: 12px;text-align:right;">
+                                    Discount :
+                                </p>
+                                <p style="font-size: 12px;text-align:right;">
+                                    Payable :
+                                </p>
+                            </div>
+                            <div style="flex: 0 0 50%;max-width: 50%;">
+                                <p  style="font-size: 12px; text-align:right;">
+                                   {{$table->bill()->where('status', 1)->first()->total}} tk
+                                </p>
+                                <p  style="font-size: 12px; text-align:right;">
+                                    00 tk
+                                 </p>
+                                 <p  style="font-size: 12px; text-align:right;">
+                                    00 tk
+                                 </p>
+                                 <p  style="font-size: 12px; text-align:right;">
+                                    00 tk
+                                 </p>
+                                 <p  style="font-size: 12px; text-align:right;">
+                                    {{$table->bill()->where('status', 1)->first()->total}} tk
+                                 </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <hr>
+                        <p style="text-align: center;font-size:10px;border-bottom:1px solid black;">Thanks For Comming</p>
+                    
+                        <p style="text-align: center;font-size:9px;">Developed By: ssttechbd.com</p>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
         <!-- food item row start -->
         <section class="food-item-section">
             <div class="row">
@@ -65,7 +235,8 @@
                                                             <input type="number" value="1" min="1" class="quantity quantity-taker">
                                                         </li>
                                                         <li>
-                                                            <i class="fas fa-plus add-qt" data-food="{{$food->food_id}}"></i>
+                                                            <i class="fas fa-plus add-qt" data-food="{{$food->food_id}}" data-name="{{$food->name}}"></i>
+
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -101,7 +272,7 @@
                                                             <input type="number" value="1" min="1" class="quantity quantity-taker">
                                                         </li>
                                                         <li>
-                                                            <i class="fas fa-plus add-qt" data-food="{{$food->food_id}}"></i>
+                                                            <i class="fas fa-plus add-qt" data-food="{{$food->food_id}}" data-name="{{$food->name}}"></i>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -117,13 +288,24 @@
                 </div>
                 <!-- left part end -->
                 <!-- right part start -->
+                @if($table->status)
                 <div class="col-md-4" id="qt">
                     <div class="order-summary" style="width:340px;">
                         <h1 class="text-center text-dark" style="text-align: center;">{{$table->name}}</h1>
                         
                         <p class="text-right border-right pr-1" style="font-size: 10px;text-align: right;border-right: 1px solid #dee2e6 !important;">KITCHEN PRINT : FOOD ITEM</p>
                         <hr>
-                        <p  style="font-size: 11px;">Order Id : <span id="order_id"></span></p>
+                        @php
+                            if($table->bill()->where('status', 1)->first()){
+                                $orderId = $table->bill()->where('status', 1)->first()->bill_id;
+                            }else{
+                                $orderId = '';
+                            }
+
+
+
+                        @endphp
+                        <p  style="font-size: 11px;">Order Id : <span id="order_id">{{$orderId}}</span></p>
                         <p  style="font-size: 11px;">Order Date : <span id="date"></span></p>
                         <script> 
                             document.getElementById('date').innerHTML = data
@@ -148,25 +330,8 @@
                                         </p>
                                     </div>
                                 </div>
-                                <div class="row itemss" style="  display: flex;
-                                flex-wrap: wrap;;">
-                                    <div class="col-6" style="
-                                    flex: 0 0 50%;
-                                    max-width: 50%;
-                                ">
-                                        <p style="font-size: 12px;">
-                                            <span class="badge badge-dark cross" style="cursor: pointer;margin-right:5px;">(x)</span> Sluggy Burger
-                                        </p>
-                                    </div>
+                                <div id="itemsss">
 
-                                    <div class="col-6" style="
-                                    flex: 0 0 50%;
-                                    max-width: 50%;
-                                ">
-                                        <p class="text-right" style="font-size: 12px; text-align:right;">
-                                            1
-                                        </p>
-                                    </div>
                                 </div>
                             </div>
                             <!-- item end -->
@@ -175,14 +340,17 @@
                     </div>
                     
                 </div>
+                @endif
                 <!-- right part end -->
             </div>
         </section>
+        @if($table->status)
         <div class="row print-button">
             <div class="col-md-12 text-right">
-                <button>print qt</button>
+                <button id="printQt">print qt</button>
             </div>
         </div>
+        @endif
         <!-- food item row end -->
         <!-- page indicator start -->
         <section class="page-indicator">
@@ -208,35 +376,31 @@
                         <thead>
                             <tr>
                                 <td>#</td>
-                                <td>image</td>
-                                <td>item name</td>
-                                <td>type</td>
-                                <td>category</td>
-                                <td>price</td>
-                                <td>action</td>
+                                <td>Item Name</td>
+                                <td>Type</td>                                
+                                <td>U. Price</td>
+                                <td>Qty</td>
+                                <td>Total</td>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th>1</th>
-                                <td>
-                                    <img src="images/food.png" class="img-fluid" alt="">
-                                </td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <td class="action">
-                                    <ul>
-                                        <li class="edit">
-                                            <i class="fas fa-edit"></i>
-                                        </li>
-                                        <li class="delete">
-                                            <i class="fas fa-trash"></i>
-                                        </li>
-                                    </ul>
-                                </td>
-                            </tr>
+
+                           
+                           @if($table->bill()->where('status', 1)->first())
+                                @foreach ($table->bill()->where('status', 1)->first()->order as $key => $order)
+                                    
+                                
+                                    <tr>
+                                        <th>{{$key + 1}}</th>
+                                        <td>{{$order->food_name}}</td>
+                                        <td>{{$order->type}}</td>
+                                        <td>{{$order->price}}</td>
+                                        <td>{{$order->quantity}}</td>
+                                        <td>{{$order->total}}</td>
+                                        
+                                    </tr>
+                                @endforeach
+                            @endif
                         </tbody>
                     </table>
                 </div>

@@ -363,3 +363,34 @@ table thead tr{
     color: #fd4e4e;
 }
 /* food item end */
+
+
+
+
+/* start table dropdown start */
+.start-table{
+    position: relative;
+}
+.start-table a{
+    cursor: pointer;
+}
+.hotel-boy{
+    position: absolute;
+    top: 110%;
+    width: max-content;
+    background: white;
+    z-index: 2;
+    left: 50%;
+    transform: translateX(-50%);
+    display: none;
+    padding: 15px;
+}
+.hotel-boy a{
+    display: block;
+    background: #46b04b;
+    color: white;
+    padding: 5px;
+}
+.hotel-boy a:hover{
+    background: #d1bd0c;
+}

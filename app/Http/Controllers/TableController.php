@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Bill;
 use App\table;
 use App\User;
 use Illuminate\Http\Request;
@@ -72,11 +73,15 @@ class TableController extends Controller
     {
         if(request()->user()->isAdmin){
             $categories = request()->user()->categories()->orderBy('name', 'asc')->get();
+            $users = request()->user()->user;
         }else{
             $categories = request()->user()->admin->categories()->orderBy('name', 'asc')->get();
+            $users = request()->user()->admin->user;
         }
+
+
         
-        return view('pages.inTable', compact('categories','table'));
+        return view('pages.inTable', compact('categories','table', 'users'));
     }
 
     /**
@@ -88,6 +93,37 @@ class TableController extends Controller
     public function edit(Table $table)
     {
         //
+    }
+
+
+
+
+    public function start($table, $boyid)
+    {
+        $table = table::where('table_id', $table)->first();
+        $user = User::find($boyid);
+    
+
+    
+        $bill = new Bill();       
+        $bill->bill_id = "bst_".time();
+        $bill->table_id = $table->table_id;
+        $bill->table_name = $table->name;
+        $bill->total = 0;
+        $bill->discount = 0;
+        $bill->payable = 0;
+        $bill->by = $user->name;
+        $bill->vat = 0;
+        $bill->service_charge = 0;
+        $bill->status = 1;
+        $bill->user_id = $table->user_id;
+        if($bill->save()){
+            $table->status = 1;
+            $table->save();
+            return back();
+        }else{
+            return back();
+        }
     }
 
     /**

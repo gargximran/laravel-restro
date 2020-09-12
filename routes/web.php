@@ -20,6 +20,7 @@ Auth::routes(['register' => false, 'verify' => false]);
 Route::middleware('auth')->group(function(){
     Route::get('/', 'TableController@index')->name('home');
     Route::get('/table/{table:table_id}/order', "TableController@show")->name('in_table');
+    Route::get('/start/{table}/{boyid}', 'TableController@start')->name('startTable');
     
 
 
@@ -38,6 +39,8 @@ Route::middleware('auth')->group(function(){
         Route::get('/table', 'AdminController@index')->name('tableShow');
         Route::post('/table', 'TableController@store')->name('add_table');
         Route::delete('/table/{user:user_id}/delete/{table:id}', 'TableController@destroy')->name('deleteTable');
+
+        
 
         // category managemane routes
         Route::post('/category/{user:user_id}/update/{category:id}', "FoodController@updateCategory")->name("EditCategory");

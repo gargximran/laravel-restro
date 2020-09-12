@@ -23,6 +23,7 @@ class CreateBillsTable extends Migration
             $table->integer('vat')->nullable();
             $table->integer('service_charge')->nullable();
             $table->string('status');
+            $table->string('by');
             $table->string('user_id');
             $table->timestamps();
         });
