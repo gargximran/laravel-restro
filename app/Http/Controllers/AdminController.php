@@ -37,7 +37,7 @@ class AdminController extends Controller
 
         if(!$bill){
             $bill = new Bill();
-            $bill->bill_id = "bst_".time();
+            $bill->bill_id = time();
             $bill->table_id = $request->table;
             $bill->table_name = $table->name;
             $bill->total = 0;
@@ -64,6 +64,7 @@ class AdminController extends Controller
             $order->save();
 
             $bill->total += $order->total;
+            $bill->payable += $order->total;
             $bill->save();
         }
 
@@ -72,5 +73,39 @@ class AdminController extends Controller
     }
 
 
+    public function orderex(Request $request){
+        $bill = Bill::find($request->bill);
+        $bill->discount = $request->discount;
+        $bill->service_charge = $request->service;
+        $bill->vat = $request->vat;
+        $bill->payable = $bill->total - $request->discount + $request->service + $request->vat;
+   
+        $bill->save();
+        return $bill;
+    }
+
+
+    public function payment(Request $request){
+        $bill = Bill::find($request->bill);
+        $bill->pay_by_cash = $request->cash;
+        $bill->pay_by_card = $request->card;
+        $bill->pay_by_bkash = $request->bkash;
+        $bill->status = 0;
+        
+
+        $bill->save();
+
+        $table = table::where('table_id', $bill->table_id)->first();
+        $table->status = 0;
+        $table->save();
+        return $bill;
+
+    }
+
+
+    public function report(Request $request){
+        $bills = $request->user()->bill()->orderBy('created_at','desc')->get();
+        return view('pages.report', compact('bills'));
+    }
 
 }

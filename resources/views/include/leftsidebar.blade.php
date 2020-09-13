@@ -60,7 +60,7 @@
                             </a>
                         </li>
                         <li >
-                            <a href="">
+                            <a href="{{route("report")}}">
                             <div class="left">
                                     report
                             </div>

@@ -106,7 +106,7 @@ class TableController extends Controller
 
     
         $bill = new Bill();       
-        $bill->bill_id = "bst_".time();
+        $bill->bill_id = time();
         $bill->table_id = $table->table_id;
         $bill->table_name = $table->name;
         $bill->total = 0;

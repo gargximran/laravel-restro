@@ -121,6 +121,16 @@ document.getElementById('printQt').onclick = () => {
 		
 		let x = document.getElementById('qt').innerHTML
 		let y = window.open(' ', '_parent')
+		let z = `
+			<style>
+				*{
+					margin: 0;
+					padding: 0;
+				}
+			
+			</style>
+		`
+		y.document.write(z)
 		y.document.write(x)
 		y.print()
 		window.location.reload()
@@ -166,3 +176,115 @@ function fu(){
 }
 
 
+
+document.getElementById('parvat').oninput = e => {
+	let value = e.target.value / 100
+	let total = e.target.dataset.total
+	document.getElementById('vat').value =  value * total
+}
+
+document.getElementById('pardiscount').oninput = e => {
+	let value = e.target.value / 100
+	let total = e.target.dataset.total
+	document.getElementById('discount').value =  value * total
+}
+
+document.getElementById('submit').onclick = e => {
+	let extra = {
+		discount: document.getElementById('discount').value,
+		vat : document.getElementById('vat').value,
+		service: document.getElementById('service').value,
+		bill: document.getElementById("billId").value
+	}
+	axios.post('/api/exin', extra)
+	.then(res => {
+		setTimeout(() => {
+			window.location.reload()
+		}, 300);
+		
+	})
+	setTimeout(() => {
+		window.location.reload()
+	}, 300);
+}
+
+
+
+
+document.getElementById('printGuestBill').onclick = () => {
+	let x = document.getElementById('guestBill').innerHTML
+		let y = window.open(' ', '_parent')
+		let z = `
+			<style>
+				*{
+					margin: 0;
+					padding: 0;
+				}
+			
+			</style>
+		`
+		y.document.write(z)
+		y.document.write(x)
+		y.print()
+		setTimeout(() => {
+			window.location.reload()
+		}, 300);
+}
+
+function totalPayment(){
+	payCash = parseInt(document.getElementById('cash').value) || 0 
+	payCard = parseInt(document.getElementById('card').value) || 0 
+	payBkash = parseInt(document.getElementById('bkash').value) || 0 
+
+	document.getElementById('totalshow').innerHTML =  payCash + payCard + payBkash;
+}
+
+
+document.getElementById('cash').oninput = (e)=>{
+	let value = e.target.value
+	document.getElementById("cashshow").innerHTML = value
+	totalPayment()
+	
+	
+}
+
+document.getElementById('bkash').oninput = (e)=>{
+	let value = e.target.value
+	document.getElementById("bkashshow").innerHTML = value
+	totalPayment()
+	
+}
+
+document.getElementById('card').oninput = (e)=>{
+	let value = e.target.value
+	document.getElementById("cardshow").innerHTML = value
+	totalPayment()
+	
+}
+
+function payment(){
+	payCash = parseInt(document.getElementById('cash').value) || 0 
+	payCard = parseInt(document.getElementById('card').value) || 0 
+	payBkash = parseInt(document.getElementById('bkash').value) || 0 
+	bill = document.getElementById('billId').value
+	paymentDetail = {
+		cash : payCash,
+		card : payCard,
+		bkash : payBkash,
+		bill : bill
+	}
+	x = document.getElementById('invoiceBill').innerHTML;
+
+	axios.post('/api/payment', paymentDetail)
+	.then(res => {
+		
+		y = window.open('', '_parent');
+		z = ` <style> *{margin:0;padding:0;} </style>`;
+		y.document.write(z);
+		y.document.write(x);
+		
+		y.print();
+		window.location = '/'
+	})
+
+}

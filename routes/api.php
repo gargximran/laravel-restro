@@ -15,3 +15,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('/order', 'AdminController@order');
+Route::post('/exin', 'AdminController@orderex');
+Route::post('/payment', 'AdminController@payment');
+

@@ -22,6 +22,10 @@ class CreateBillsTable extends Migration
             $table->integer('payable');
             $table->integer('vat')->nullable();
             $table->integer('service_charge')->nullable();
+            $table->integer('pay_by_cash')->nullable();
+            $table->integer('pay_by_bkash')->nullable();
+            $table->integer('pay_by_card')->nullable();
+            $table->integer('paid')->nullable();
             $table->string('status');
             $table->string('by');
             $table->string('user_id');
