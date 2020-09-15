@@ -9,7 +9,7 @@
         <!-- page indicator start -->
         <section class="page-indicator">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <ul>
                         <li>
                             <i class="fas fa-user"></i>
@@ -17,7 +17,35 @@
                         <li>
                             All Bill
                         </li>
+                        <li>
+                            <a href="{{route('today_report')}}"> Today Report</a>
+                        </li>
                     </ul>
+                </div>
+
+                <div class="col-md-6">
+                    <form action="{{route('pick_report')}}" method="POST">
+                        @csrf
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="">From</label>
+                                    <input name="from" type="date" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="">To</label>
+                                    <input name="to" type="date" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <button class="btn btn-primary">Get Bill</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </section>

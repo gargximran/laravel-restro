@@ -56,6 +56,8 @@ Route::middleware('auth')->group(function(){
 
         // report management
         Route::get('/report', 'AdminController@report')->name("report");
+        Route::get('/report/today', 'AdminController@today')->name('today_report');
+        Route::post('/report/pick', 'AdminController@pick')->name('pick_report');
     });
     
 });

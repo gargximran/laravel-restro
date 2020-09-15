@@ -17,7 +17,6 @@ class TableController extends Controller
      */
     public function index()
     {
-    
         if(request()->user()->isAdmin){
             $tables = request()->user()->table()->orderBy('name', 'asc')->get();
         }else{
