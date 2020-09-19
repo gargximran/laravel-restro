@@ -164,4 +164,16 @@ class TableController extends Controller
         }
         return redirect()->route('tableShow');
     }
+
+
+
+    public function reset(table $table){
+        $bill = $table->bill()->where('status', 1)->first();
+
+        $bill->order()->delete();
+        $bill->delete();
+        $table->status = 0;
+        $table->save();
+        return redirect()->route('home');
+    }
 }

@@ -31,8 +31,12 @@
                         @if($table->bill()->where('status', 1)->first())
                         <p>by : {{$table->bill()->where('status', 1)->first()->by}}</p>
                         @endif
+                            @if (Auth::user()->isAdmin)
+                                <a href="{{ route('reset_table', $table->table_id) }}" class="btn btn-danger"> reset table</a>
+                            @endif
                         <button class="bg-info" data-toggle="modal" data-target="#Bill"> guest bill</button>
                         <button class="invoice" data-toggle="modal" data-target="#invoice"> invoice</button>
+                        
                         @endif
                         
                     </div>
@@ -552,7 +556,7 @@
         @if($table->status)
         <div class="row print-button">
             <div class="col-md-12 text-right">
-                <button id="printQt">print qt</button>
+                <button id="printQt">print KOT</button>
             </div>
         </div>
         @endif

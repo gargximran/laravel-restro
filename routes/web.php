@@ -39,6 +39,7 @@ Route::middleware('auth')->group(function(){
         Route::get('/table', 'AdminController@index')->name('tableShow');
         Route::post('/table', 'TableController@store')->name('add_table');
         Route::delete('/table/{user:user_id}/delete/{table:id}', 'TableController@destroy')->name('deleteTable');
+        Route::get('/table/reset/{table:table_id}', 'TableController@reset')->name('reset_table');
 
         
 

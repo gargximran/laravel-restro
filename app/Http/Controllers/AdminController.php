@@ -172,7 +172,7 @@ class AdminController extends Controller
 
     public function pick(Request $request)
     {
-        $reports = Bill::whereBetween('created_at', [Carbon::parse($request->from),Carbon::parse($request->to)])->get();
+        $reports = Bill::whereBetween('created_at', [Carbon::parse($request->from),Carbon::parse($request->to)->addDay()])->get();
         $total_bill = 0;
         $total_discount = 0;
         $total_vat = 0;
@@ -233,7 +233,9 @@ class AdminController extends Controller
             array_push($sd, $s);
         }
         $d1 = array_unique($d);
+    
         $sd1 = array_unique($sd);
+      
         $dates = [];
         $sdates = [];
 
@@ -265,5 +267,8 @@ class AdminController extends Controller
         
 
     }
+
+
+   
 
 }

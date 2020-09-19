@@ -27,6 +27,11 @@
         <!-- page indicator end -->
         <div class="container">
             <div class="row">
+                <div class="col-md-12">
+                    <button class="btn btn-primary" id="prnt">Print Report</button>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-md-4 offset-md-4">
                     <div id="todayBill">
                         <div style="padding: 10px;background: #fff;box-shadow: #dad9d9 0px 7px 16px -3px;">
@@ -159,4 +164,29 @@
     </div>
 </div>
 <!-- main content end -->
+
+
+
+<script>
+    document.getElementById('prnt').onclick = () => {
+	let x = document.getElementById('todayBill').innerHTML
+		let y = window.open(' ', '_parent')
+		let z = `
+			<style>
+				*{
+					margin: 0;
+					padding: 0;
+				}
+			
+			</style>
+		`
+		y.document.write(z)
+		y.document.write(x)
+		y.print()
+		setTimeout(() => {
+			window.location.reload()
+		}, 300);
+}
+
+</script>
 @endsection
